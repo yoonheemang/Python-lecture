@@ -1,2 +1,2 @@
 # PythonPrograming-lecture
-19-2 python lecture
+19-2 python programming lecture
