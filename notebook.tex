@@ -1,0 +1,592 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{????(tkinter??)}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{예매 프로그램(tkinter
+활용)}\label{uxc608uxb9e4-uxd504uxb85cuxadf8uxb7a8tkinter-uxd65cuxc6a9}
+
+\subsection{통계학과 2016110508
+윤희망}\label{uxd1b5uxacc4uxd559uxacfc-2016110508-uxc724uxd76cuxb9dd}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{}회원리스트 생성}
+        \PY{n}{mem\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{}예매내역 리스트 생성}
+        \PY{n}{order\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{}최근 본 여행지 리스트 생성}
+        \PY{n}{last\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+\end{Verbatim}
+
+
+    -\textgreater{}로그아웃하면 회원리스트, 예매내역 그대로 유지, 최근 본
+여행지 리셋
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{tkinter}\PY{n+nn}{.}\PY{n+nn}{messagebox}
+        \PY{k+kn}{from} \PY{n+nn}{tkinter} \PY{k}{import} \PY{o}{*}
+\end{Verbatim}
+
+
+    messagebox가 없다는 오류발생-\textgreater{} import tkinter.messagebox를
+두번 해주면 오류해결
+
+from tkinter import* 과 자리를 바꿔주면(작동 순서를 바꿔주면) 해결
+
+    \subsection{로그인}\label{uxb85cuxadf8uxc778}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}로그인 함수(회원번호 입력)}
+        \PY{k}{def} \PY{n+nf}{login}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{k}{while}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{mem\PYZus{}no}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{==}\PY{l+m+mi}{4} \PY{o+ow}{and} \PY{n}{mem\PYZus{}no}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{isdigit}\PY{p}{(}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{}4자리 숫자인 경우}
+                    \PY{c+c1}{\PYZsh{}회원번호를 order\PYZus{}list에 추가}
+                    \PY{k}{global} \PY{n}{no}         
+                    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{order\PYZus{}list}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                        \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{order\PYZus{}list}\PY{p}{)}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{:}
+                            \PY{n}{no}\PY{o}{=}\PY{l+m+mi}{0}
+                            \PY{n}{order\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{mem\PYZus{}no}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+                            \PY{k}{break}
+                        \PY{k}{elif} \PY{n}{order\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{==}\PY{n}{mem\PYZus{}no}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                            \PY{n}{no}\PY{o}{=}\PY{n}{i}
+                            \PY{k}{break}
+                        \PY{k}{elif} \PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{==}\PY{n+nb}{len}\PY{p}{(}\PY{n}{order\PYZus{}list}\PY{p}{)}\PY{p}{:}
+                            \PY{n}{no}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{order\PYZus{}list}\PY{p}{)}
+                            \PY{n}{order\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{mem\PYZus{}no}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+        
+                    \PY{c+c1}{\PYZsh{}회원번호가 리스트에 있을 경우}
+                    \PY{k}{if} \PY{n}{mem\PYZus{}no}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{p}{)} \PY{o+ow}{in} \PY{n}{mem\PYZus{}list}\PY{p}{:}
+                        \PY{n}{messagebox}\PY{o}{.}\PY{n}{showinfo}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{success}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{환영합니다}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                        \PY{n}{quit}\PY{p}{(}\PY{p}{)}
+                    \PY{c+c1}{\PYZsh{}회원번호가 리스트에 없을 경우}
+                    \PY{k}{else}\PY{p}{:}
+                        \PY{n}{messagebox}\PY{o}{.}\PY{n}{showinfo}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{success}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{신규회원입니다}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                        \PY{n}{mem\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{mem\PYZus{}no}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                        \PY{n}{quit}\PY{p}{(}\PY{p}{)}
+                    \PY{n}{winopen}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{메인화면}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                    \PY{k}{break}
+                    
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n}{messagebox}\PY{o}{.}\PY{n}{showerror}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{4자리 숫자를 입력하세요}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}4자리 숫자가 아닌경우 다시 입력받음}
+                    \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{4자리 숫자값을 입력하지 않았습니다.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}예외처리}
+                    \PY{k}{break}
+\end{Verbatim}
+
+
+    -\textgreater{} 회원번호가 이미 등록되어있으면 그 위치에 정보를
+추가하거나 열람해야하므로 전역변수로 위치를 생성
+
+-\textgreater{} 저장되지 않은 회원번호를 가진 사람이 들어오면 새로운
+리스트를 줘야함(신규회원) \#\#\#\# -\textgreater{} 예외처리 : '로그인
+창에서 4자리가 아닌 값 입력시 오류나게 함'
+
+    \subsection{로그아웃}\label{uxb85cuxadf8uxc544uxc6c3}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}창닫는 함수}
+        \PY{k}{def} \PY{n+nf}{quit}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{window}\PY{o}{.}\PY{n}{quit}\PY{p}{(}\PY{p}{)}
+            
+        \PY{c+c1}{\PYZsh{}로그아웃 함수}
+        \PY{k}{def} \PY{n+nf}{logout}\PY{p}{(}\PY{n}{win}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n}{messagebox}\PY{o}{.}\PY{n}{askyesno}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{확인}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{로그아웃하시겠습니까?}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+                \PY{k}{global} \PY{n}{last\PYZus{}list}
+                \PY{n}{last\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+                \PY{n}{win}\PY{o}{.}\PY{n}{destroy}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    -\textgreater{} 최근 본 여행지 목록을 로그인 할 때마다 갱신이 안되는
+오류 : last\_list 를 전역변수 설정하여 해결
+
+    \subsection{메인화면 메뉴창
+띄우기}\label{uxba54uxc778uxd654uxba74-uxba54uxb274uxcc3d-uxb744uxc6b0uxae30}
+
+    \subsubsection{메인화면
+메뉴(1.여행지보기(예매하기))}\label{uxba54uxc778uxd654uxba74-uxba54uxb2741.uxc5ecuxd589uxc9c0uxbcf4uxae30uxc608uxb9e4uxd558uxae30}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}여행지 보기(예매하기)}
+        \PY{k}{def} \PY{n+nf}{winopen1}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
+            \PY{n}{new}\PY{o}{=}\PY{n}{Toplevel}\PY{p}{(}\PY{p}{)}
+            \PY{n}{new}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{t}\PY{p}{)}
+            \PY{n}{new}\PY{o}{.}\PY{n}{geometry}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{300x190}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{travel}\PY{o}{=}\PY{n}{PhotoImage}\PY{p}{(}\PY{n}{file}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{travel.gif}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{subsample}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n}{travel\PYZus{}label}\PY{o}{=}\PY{n}{Label}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{image}\PY{o}{=}\PY{n}{travel}\PY{p}{)}
+            \PY{n}{travel\PYZus{}label}\PY{o}{.}\PY{n}{place}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{)}
+            
+            \PY{n}{btn1}\PY{o}{=}\PY{n}{Button}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{text}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{그랜드}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{캐니언}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bg}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yellow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{command}\PY{o}{=}\PY{k}{lambda}\PY{p}{:}\PY{n}{info}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{그랜드 캐니언}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{btn2}\PY{o}{=}\PY{n}{Button}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{text}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{자이언}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{캐니언}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bg}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yellow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{command}\PY{o}{=}\PY{k}{lambda}\PY{p}{:}\PY{n}{info}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{자이언 캐니언}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{btn3}\PY{o}{=}\PY{n}{Button}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{text}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{브라이스}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{캐니언}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bg}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yellow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{command}\PY{o}{=}\PY{k}{lambda}\PY{p}{:}\PY{n}{info}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{브라이스 캐니언}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{btn4}\PY{o}{=}\PY{n}{Button}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{text}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{앤텔로프}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{캐니언}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bg}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yellow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{command}\PY{o}{=}\PY{k}{lambda}\PY{p}{:}\PY{n}{info}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{앤텔로프 캐니언}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{btn5}\PY{o}{=}\PY{n}{Button}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{text}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{메인화면으로}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{command}\PY{o}{=}\PY{k}{lambda}\PY{p}{:}\PY{n}{new}\PY{o}{.}\PY{n}{destroy}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            
+            \PY{n}{btn1}\PY{o}{.}\PY{n}{place}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,}\PY{n}{width}\PY{o}{=}\PY{l+m+mi}{60}\PY{p}{,}\PY{n}{height}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+            \PY{n}{btn2}\PY{o}{.}\PY{n}{place}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,}\PY{n}{width}\PY{o}{=}\PY{l+m+mi}{60}\PY{p}{,}\PY{n}{height}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+            \PY{n}{btn3}\PY{o}{.}\PY{n}{place}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{160}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,}\PY{n}{width}\PY{o}{=}\PY{l+m+mi}{60}\PY{p}{,}\PY{n}{height}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+            \PY{n}{btn4}\PY{o}{.}\PY{n}{place}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{230}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,}\PY{n}{width}\PY{o}{=}\PY{l+m+mi}{60}\PY{p}{,}\PY{n}{height}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+            \PY{n}{btn5}\PY{o}{.}\PY{n}{place}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{150}\PY{p}{)}
+            \PY{n}{new}\PY{o}{.}\PY{n}{mainloop}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}예매내역 리스트에 추가하고 창 닫는 함수}
+        \PY{k}{def} \PY{n+nf}{append\PYZus{}close}\PY{p}{(}\PY{n}{text}\PY{p}{,}\PY{n}{win}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n}{text} \PY{o+ow}{in} \PY{n}{order\PYZus{}list}\PY{p}{[}\PY{n}{no}\PY{p}{]}\PY{p}{:}
+                \PY{n}{messagebox}\PY{o}{.}\PY{n}{showerror}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{이미 예매한 여행지입니다.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n}{win}\PY{o}{.}\PY{n}{destroy}\PY{p}{(}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{order\PYZus{}list}\PY{p}{[}\PY{n}{no}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{text}\PY{p}{)}
+                \PY{n}{win}\PY{o}{.}\PY{n}{destroy}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    -\textgreater{} 여행지 보기(예매하기)창 함수 만들기
+
+-\textgreater{} 예매버튼 클릭 시 예매내역 리스트에 추가하고 창 닫는 함수
+/ 이미 예매한 여행지일 경우 에러박스 띄우기(예매내역 추가X)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}여행지 정보창}
+        \PY{k}{def} \PY{n+nf}{info}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
+            \PY{n}{new}\PY{o}{=}\PY{n}{Toplevel}\PY{p}{(}\PY{p}{)}
+            \PY{n}{new}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{t}\PY{p}{)}
+            \PY{n}{new}\PY{o}{.}\PY{n}{geometry}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{540x175}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}여행지 정보를 보면 최근 본 여행지에 추가(앞쪽으로)  }
+            \PY{k}{if} \PY{n}{t} \PY{o+ow}{in} \PY{n}{last\PYZus{}list}\PY{p}{:}
+                \PY{n}{last\PYZus{}list}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{n}{t}\PY{p}{)}
+            \PY{n}{last\PYZus{}list}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{t}\PY{p}{)} 
+            
+            \PY{k}{if} \PY{n}{t}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{그랜드 캐니언}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                \PY{n}{Grand}\PY{o}{=}\PY{n}{PhotoImage}\PY{p}{(}\PY{n}{file}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GrandCanyon.gif}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{subsample}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+                \PY{n}{Grand\PYZus{}label}\PY{o}{=}\PY{n}{Label}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{image}\PY{o}{=}\PY{n}{Grand}\PY{p}{)}
+                \PY{n}{Grand\PYZus{}label}\PY{o}{.}\PY{n}{place}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                \PY{n}{label}\PY{o}{=}\PY{n}{Label}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{text}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{그랜드 캐니언}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{1일투어 가격 : }\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{200,000 }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{grand}\PY{p}{)}
+                
+            \PY{k}{elif} \PY{n}{t}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{자이언 캐니언}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                \PY{n}{Giant}\PY{o}{=}\PY{n}{PhotoImage}\PY{p}{(}\PY{n}{file}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GiantCanyon2.gif}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{subsample}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+                \PY{n}{Giant\PYZus{}label}\PY{o}{=}\PY{n}{Label}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{image}\PY{o}{=}\PY{n}{Giant}\PY{p}{)}
+                \PY{n}{Giant\PYZus{}label}\PY{o}{.}\PY{n}{place}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{)}
+                \PY{n}{label}\PY{o}{=}\PY{n}{Label}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{text}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{자이언 캐니언}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{1일투어 가격 : }\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{300,000}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{giant}\PY{p}{)}
+                
+            \PY{k}{elif} \PY{n}{t}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{브라이스 캐니언}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                \PY{n}{Bryce}\PY{o}{=}\PY{n}{PhotoImage}\PY{p}{(}\PY{n}{file}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{BryceCanyon.gif}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{subsample}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+                \PY{n}{Bryce\PYZus{}label}\PY{o}{=}\PY{n}{Label}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{image}\PY{o}{=}\PY{n}{Bryce}\PY{p}{)}
+                \PY{n}{Bryce\PYZus{}label}\PY{o}{.}\PY{n}{place}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                \PY{n}{label}\PY{o}{=}\PY{n}{Label}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{text}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{브라이스 캐니언}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{1일투어 가격 : }\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{250,000}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{bryce}\PY{p}{)}
+                
+            \PY{k}{elif} \PY{n}{t}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{앤텔로프 캐니언}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                \PY{n}{Antelop}\PY{o}{=}\PY{n}{PhotoImage}\PY{p}{(}\PY{n}{file}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{AntelopCanyon2.gif}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{subsample}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+                \PY{n}{Antelop\PYZus{}label}\PY{o}{=}\PY{n}{Label}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{image}\PY{o}{=}\PY{n}{Antelop}\PY{p}{)}
+                \PY{n}{Antelop\PYZus{}label}\PY{o}{.}\PY{n}{place}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                \PY{n}{label}\PY{o}{=}\PY{n}{Label}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{text}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{앤텔로프 캐니언}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{1일투어 가격 : }\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{350,000}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{antelop}\PY{p}{)}
+                
+            \PY{n}{label}\PY{o}{.}\PY{n}{pack}\PY{p}{(}\PY{n}{side}\PY{o}{=}\PY{n}{RIGHT}\PY{p}{)}
+            \PY{n}{btn}\PY{o}{=}\PY{n}{Button}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{text}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{예매}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bg}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yellow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{command}\PY{o}{=}\PY{k}{lambda}\PY{p}{:}\PY{n}{append\PYZus{}close}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{new}\PY{p}{)}\PY{p}{)}
+            \PY{n}{btn}\PY{o}{.}\PY{n}{place}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{380}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{145}\PY{p}{)}
+            \PY{n}{new}\PY{o}{.}\PY{n}{mainloop}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{grand}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{미국 애리조나주 북부에 있는 거대한 협곡으로 }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{세계적으로 유명한 경관을 자랑한다. }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{20억 년 전에 생성된 것으로 추정되며, }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{1919년 미국의 국립공원으로,}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ 1979년 유네스코 세계자연유산으로 지정되었다.}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{giant}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{형형색색의 모래 바위, 작열하는 태양 아래 }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{드리워진 거대한 사막의 모뉴먼트, }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{붉은 암반과 수풀 고원으로 둘러싸인 }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{    자이언 캐니언은 신의 정원 그 이상이다.    }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{bryce}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{미국 유타주에 있는 국립공원으로}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ 수만개의 섬세한 첨탑을 가진 여러 개의 }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{반원형 극장의 집단과 같은 모습이다.}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{  작지만 더 친근감이 들며, 접근하기가 쉽고,    }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{초현실적인 바위 형성물들은 }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{그랜드 캐니언에 비해 더 섬세하다.}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{antelop}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{앤틸로프캐년은 한 마디로 빛과 자연이 만든 }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{예술작품이라고 할 수 있다.}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ 마치 신이 부드러운 손으로 도자기를 빚은 듯한 }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{착각에 빠지게 할 정도로 }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{신비스러운 분위기를 연출한다.}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    -\textgreater{} 여행지 정보를 열람하면 최근 본 여행지 리스트에
+추가(최근에 본 정보가 앞쪽으로 오도록 추가)
+
+    \subsubsection{메인화면 메뉴(2. best 여행지 추천 3.최근 본 여행지
+4.예매내역보기)}\label{uxba54uxc778uxd654uxba74-uxba54uxb2742.-best-uxc5ecuxd589uxc9c0-uxcd94uxcc9c-3.uxcd5cuxadfc-uxbcf8-uxc5ecuxd589uxc9c0-4.uxc608uxb9e4uxb0b4uxc5eduxbcf4uxae30}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{}best 여행지 추천}
+        \PY{k}{def} \PY{n+nf}{winopen2}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
+            \PY{n}{new}\PY{o}{=}\PY{n}{Toplevel}\PY{p}{(}\PY{p}{)}
+            \PY{n}{new}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{t}\PY{p}{)}
+        
+            \PY{n}{best}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{그랜드 캐니언}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{자이언 캐니언}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{브라이스 캐니언}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{앤텔로프 캐니언}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{\PYZcb{}}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{order\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{order\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{best}\PY{p}{[}\PY{n}{order\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{]}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+            \PY{n}{recommend}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n}{best}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{n+nb}{list}\PY{p}{(}\PY{n}{best}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{best}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+            \PY{n}{label2}\PY{o}{=}\PY{n}{Label}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{text}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{가장 많이 예매한 여행지}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{recommend}\PY{p}{)}
+            \PY{n}{label2}\PY{o}{.}\PY{n}{pack}\PY{p}{(}\PY{p}{)}
+        
+            \PY{n}{new}\PY{o}{.}\PY{n}{mainloop}\PY{p}{(}\PY{p}{)}
+            
+        \PY{c+c1}{\PYZsh{}최근 본 여행지}
+        \PY{k}{def} \PY{n+nf}{winopen3}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
+            \PY{n}{new}\PY{o}{=}\PY{n}{Toplevel}\PY{p}{(}\PY{p}{)}
+            \PY{n}{new}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{t}\PY{p}{)}
+            \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{last\PYZus{}list}\PY{p}{)}\PY{o}{!=}\PY{l+m+mi}{0}\PY{p}{:}
+                \PY{n}{label3}\PY{o}{=}\PY{n}{Label}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{text}\PY{o}{=}\PY{n}{last\PYZus{}list}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{label3}\PY{o}{=}\PY{n}{Label}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{text}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{최근 본 여행지가 없습니다.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{label3}\PY{o}{.}\PY{n}{pack}\PY{p}{(}\PY{p}{)}
+            \PY{n}{new}\PY{o}{.}\PY{n}{mainloop}\PY{p}{(}\PY{p}{)}
+            
+        \PY{c+c1}{\PYZsh{}예매내역 보기}
+        \PY{k}{def} \PY{n+nf}{winopen4}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
+            \PY{n}{new}\PY{o}{=}\PY{n}{Toplevel}\PY{p}{(}\PY{p}{)}
+            \PY{n}{new}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{t}\PY{p}{)}
+            \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{order\PYZus{}list}\PY{p}{[}\PY{n}{no}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{o}{!=}\PY{l+m+mi}{0}\PY{p}{:}
+                \PY{n}{label4}\PY{o}{=}\PY{n}{Label}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{text}\PY{o}{=}\PY{n}{order\PYZus{}list}\PY{p}{[}\PY{n}{no}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{label4}\PY{o}{=}\PY{n}{Label}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{text}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{예매내역이 없습니다.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{label4}\PY{o}{.}\PY{n}{pack}\PY{p}{(}\PY{p}{)}
+            \PY{n}{new}\PY{o}{.}\PY{n}{mainloop}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    -\textgreater{} best여행지 추천은 딕셔너리 사용해서 가장 많은 값을 가진
+여행지 출력
+
+-\textgreater{} 예매내역보기 함수에서 단순히 여행지 뿐만 아니라 가격,
+여행지 정보도 나타나게 할 것
+
+-\textgreater{} order\_list에서 첫번째 변수는 제외하고 출력하기 {[}1:{]}
+사용
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}새로운 창 열리는 함수}
+        \PY{k}{def} \PY{n+nf}{winopen}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
+            \PY{n}{new}\PY{o}{=}\PY{n}{Toplevel}\PY{p}{(}\PY{p}{)}
+            \PY{n}{new}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{t}\PY{p}{)}
+            \PY{n}{new}\PY{o}{.}\PY{n}{geometry}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{480x260}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            
+            \PY{n}{airplane}\PY{o}{=}\PY{n}{PhotoImage}\PY{p}{(}\PY{n}{file}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{airplane.gif}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{air\PYZus{}label}\PY{o}{=}\PY{n}{Label}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{image}\PY{o}{=}\PY{n}{airplane}\PY{p}{)}
+            \PY{n}{air\PYZus{}label}\PY{o}{.}\PY{n}{place}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{20}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{20}\PY{p}{)}
+            
+            \PY{n}{btn1}\PY{o}{=}\PY{n}{Button}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{text}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{여행지 보기}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{(예매하기)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fg}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bg}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yellow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{command}\PY{o}{=}\PY{k}{lambda}\PY{p}{:}\PY{n}{winopen1}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{여행지 보기(예매하기)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{btn2}\PY{o}{=}\PY{n}{Button}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{text}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best 여행지 추천}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bg}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yellow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{command}\PY{o}{=}\PY{k}{lambda}\PY{p}{:}\PY{n}{winopen2}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best 여행지 추천}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{btn3}\PY{o}{=}\PY{n}{Button}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{text}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{최근 본 여행지}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bg}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yellow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{command}\PY{o}{=}\PY{k}{lambda}\PY{p}{:}\PY{n}{winopen3}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{최근 본 여행지}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{btn4}\PY{o}{=}\PY{n}{Button}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{text}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{예매내역 보기}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bg}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yellow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{command}\PY{o}{=}\PY{k}{lambda}\PY{p}{:}\PY{n}{winopen4}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{예매내역 보기}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{btn5}\PY{o}{=}\PY{n}{Button}\PY{p}{(}\PY{n}{new}\PY{p}{,}\PY{n}{text}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{로그아웃}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{command}\PY{o}{=}\PY{k}{lambda}\PY{p}{:}\PY{n}{logout}\PY{p}{(}\PY{n}{new}\PY{p}{)}\PY{p}{)}
+        
+            \PY{n}{btn1}\PY{o}{.}\PY{n}{place}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{150}\PY{p}{,}\PY{n}{width}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,}\PY{n}{height}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+            \PY{n}{btn2}\PY{o}{.}\PY{n}{place}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{150}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{150}\PY{p}{)}
+            \PY{n}{btn3}\PY{o}{.}\PY{n}{place}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{260}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{150}\PY{p}{)}
+            \PY{n}{btn4}\PY{o}{.}\PY{n}{place}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{360}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{150}\PY{p}{)}
+            \PY{n}{btn5}\PY{o}{.}\PY{n}{place}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{385}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{220}\PY{p}{)}
+            \PY{n}{new}\PY{o}{.}\PY{n}{mainloop}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    -\textgreater{} 메인화면에서 각 메뉴버튼 클릭시 새로운 화면 띄우기
+
+    \subsection{메인함수}\label{uxba54uxc778uxd568uxc218}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}윈도우 생성}
+         \PY{n}{window}\PY{o}{=}\PY{n}{Tk}\PY{p}{(}\PY{p}{)}
+         \PY{n}{window}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{로그인}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{window}\PY{o}{.}\PY{n}{geometry}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{530x140}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{airplane2}\PY{o}{=}\PY{n}{PhotoImage}\PY{p}{(}\PY{n}{file}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{airplane2.gif}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{subsample}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{air2\PYZus{}label}\PY{o}{=}\PY{n}{Label}\PY{p}{(}\PY{n}{image}\PY{o}{=}\PY{n}{airplane2}\PY{p}{)}
+         \PY{n}{air2\PYZus{}label}\PY{o}{.}\PY{n}{place}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{20}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}텍스트창의 값 저장할 변수}
+         \PY{n}{mem\PYZus{}no}\PY{o}{=}\PY{n}{StringVar}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}입력창}
+         \PY{n}{lbl} \PY{o}{=} \PY{n}{Label}\PY{p}{(}\PY{n}{window}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{회원번호}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{lbl}\PY{o}{.}\PY{n}{place}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+         \PY{n}{txt} \PY{o}{=} \PY{n}{Entry}\PY{p}{(}\PY{n}{window}\PY{p}{,}\PY{n}{textvariable}\PY{o}{=}\PY{n}{mem\PYZus{}no}\PY{p}{)}
+         \PY{n}{txt}\PY{o}{.}\PY{n}{place}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{65}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Ok버튼 (command=lambda: 뒤에 명령 작성.)}
+         \PY{n}{btn} \PY{o}{=} \PY{n}{Button}\PY{p}{(}\PY{n}{window}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ok}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{width} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{,}\PY{n}{command}\PY{o}{=}\PY{k}{lambda}\PY{p}{:}\PY{n}{login}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{btn}\PY{o}{.}\PY{n}{place}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{70}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{)}
+         
+         \PY{n}{window}\PY{o}{.}\PY{n}{mainloop}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
